@@ -3,20 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Movie Explorer</title>
+  <title>Movie Explorer 🎬</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Movie Explorer 🎬</h1>
-  
-  <input type="text" id="search" placeholder="Search for a movie..." />
+
+  <div class="header-container">
+    <h1>Movie Explorer 🎬</h1>
+
+    <div class="controls">
+      <input type="text" id="search" placeholder="Search for a movie..." />
+
+      <select id="genre-select">
+        <option value="">Select a Genre</option>
+      </select>
+
+      <button id="trending-btn">🔥 Trending Movies</button>
+    </div>
+  </div>
 
   <div id="movies-container"></div>
-  <select id="genre-select">
-    <option value="">Select a Genre</option>
-  </select>
-  
 
   <script src="script.js"></script>
+
 </body>
 </html>
