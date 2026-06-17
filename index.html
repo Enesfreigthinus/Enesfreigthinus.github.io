@@ -1,305 +1,1082 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enesfreigthinus</title>
+    <meta
+      name="description"
+      content="Portfolio website for Enes Keles, a computer science student from Turkey."
+    />
+    <title>Enes Keles</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --primary: #06b6d4; /* teal */
-        --background: #fafafa;
-        --text: #1f2937;
-        --card-bg: #ffffff;
-        --card-shadow: rgba(0, 0, 0, 0.05);
+        color-scheme: light;
+        --page: #f7fbfc;
+        --surface: #ffffff;
+        --surface-soft: #eef6fb;
+        --surface-strong: #d6e6f2;
+        --accent-soft: #b9d7ea;
+        --accent: #769fcd;
+        --accent-strong: #4e7fb5;
+        --text: #17212f;
+        --muted: #5c6b7c;
+        --line: rgba(118, 159, 205, 0.28);
+        --shadow: 0 18px 50px rgba(47, 79, 112, 0.12);
+        --radius: 8px;
       }
 
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --background: #0f172a;
-          --text: #f8fafc;
-          --card-bg: #1e293b;
-          --card-shadow: rgba(255, 255, 255, 0.05);
-        }
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --page: #101820;
+        --surface: #172231;
+        --surface-soft: #1d2d3d;
+        --surface-strong: #263d52;
+        --accent-soft: #3d6488;
+        --accent: #9cc3e7;
+        --accent-strong: #c0dcf4;
+        --text: #f7fbfc;
+        --muted: #b7c5d1;
+        --line: rgba(185, 215, 234, 0.18);
+        --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         margin: 0;
-        font-family: "Inter", sans-serif;
-        background: var(--background);
+        min-height: 100vh;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(185, 215, 234, 0.5), transparent 28rem),
+          linear-gradient(180deg, var(--page) 0%, var(--surface-soft) 100%);
         color: var(--text);
         line-height: 1.6;
       }
 
-      header {
-        padding: 3rem 1rem 2rem;
-        text-align: center;
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        content: "";
+        background-image:
+          linear-gradient(rgba(118, 159, 205, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(118, 159, 205, 0.08) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: linear-gradient(to bottom, black, transparent 70%);
       }
 
-      header h1 {
-        font-size: 2.25rem;
-        margin: 0 0 0.5rem;
-        font-weight: 700;
+      a {
+        color: inherit;
       }
 
-      header p {
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--page) 88%, transparent);
+        backdrop-filter: blur(16px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        width: min(1120px, calc(100% - 2rem));
+        min-height: 72px;
         margin: 0 auto;
-        max-width: 600px;
-        font-size: 1rem;
-        opacity: 0.85;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        min-width: max-content;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        color: var(--accent-strong);
+        box-shadow: 0 8px 24px rgba(47, 79, 112, 0.1);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        padding: 0.3rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: color-mix(in srgb, var(--surface) 72%, transparent);
+      }
+
+      .nav-links a,
+      .theme-toggle {
+        min-height: 40px;
+        border: 0;
+        border-radius: calc(var(--radius) - 2px);
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.92rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+          background 180ms ease,
+          color 180ms ease,
+          transform 180ms ease;
+      }
+
+      .nav-links a {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 0.8rem;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        background: var(--surface-strong);
+        color: var(--text);
+      }
+
+      .theme-toggle {
+        display: inline-grid;
+        width: 42px;
+        place-items: center;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        cursor: pointer;
+      }
+
+      .theme-toggle:hover,
+      .theme-toggle:focus-visible {
+        color: var(--text);
+        transform: translateY(-1px);
       }
 
       main {
-        max-width: 960px;
+        width: min(1120px, calc(100% - 2rem));
         margin: 0 auto;
-        padding: 0 1rem 4rem;
       }
 
-      .projects-grid {
+      .hero {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.5rem;
-        margin-top: 2rem;
+        grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: center;
+        min-height: calc(100vh - 72px);
+        padding: clamp(4rem, 8vw, 6rem) 0 4rem;
       }
 
-      .card {
-        background: var(--card-bg);
-        border-radius: 1rem;
-        box-shadow: 0 4px 12px var(--card-shadow);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.2s ease;
-      }
-
-      .card:hover {
-        transform: translateY(-4px);
-      }
-
-      .card img {
-        width: 100%;
-        height: 160px;
-        object-fit: cover;
-      }
-
-      .card-content {
-        padding: 1.2rem 1rem 1.4rem;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .card h2 {
-        font-size: 1.125rem;
-        margin: 0 0 0.5rem;
-        font-weight: 600;
-      }
-
-      .card p {
-        flex: 1;
+      .eyebrow {
+        width: fit-content;
         margin: 0 0 1rem;
-        font-size: 0.95rem;
-        opacity: 0.9;
+        padding: 0.32rem 0.7rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--accent-strong);
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
       }
 
-      .card a {
-        align-self: flex-start;
-        padding: 0.5rem 1rem;
-        background: var(--primary);
-        color: #fff;
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 1.25rem;
+        font-size: clamp(2.6rem, 8vw, 5.6rem);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 650px;
+        margin-bottom: 2rem;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      }
+
+      .hero-actions,
+      .social-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 1rem;
+        border: 1px solid var(--accent);
+        border-radius: var(--radius);
+        background: var(--accent);
+        color: #ffffff;
+        font-weight: 800;
         text-decoration: none;
-        border-radius: 0.5rem;
-        font-size: 0.875rem;
-        font-weight: 600;
-        transition: background 0.2s ease;
+        transition:
+          background 180ms ease,
+          border-color 180ms ease,
+          color 180ms ease,
+          transform 180ms ease;
       }
 
-      .card a:hover {
-        background: #0891b2;
+      .button:hover,
+      .button:focus-visible {
+        border-color: var(--accent-strong);
+        background: var(--accent-strong);
+        transform: translateY(-1px);
       }
 
-      footer {
+      .button.secondary {
+        background: var(--surface);
+        color: var(--accent-strong);
+      }
+
+      .button.secondary:hover,
+      .button.secondary:focus-visible {
+        background: var(--surface-strong);
+        color: var(--text);
+      }
+
+      .profile-panel {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: color-mix(in srgb, var(--surface) 84%, transparent);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .profile-top {
+        padding: 1.25rem;
+        background:
+          linear-gradient(135deg, rgba(118, 159, 205, 0.28), transparent),
+          var(--surface);
+      }
+
+      .avatar {
+        display: block;
+        width: clamp(112px, 22vw, 160px);
+        aspect-ratio: 1;
+        margin: 0 auto 1.25rem;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background:
+          linear-gradient(135deg, #f7fbfc 0%, #d6e6f2 48%, #769fcd 100%);
+        box-shadow: 0 14px 32px rgba(47, 79, 112, 0.18);
+        overflow: hidden;
+      }
+
+      .avatar img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 36%;
+      }
+
+      .profile-panel h2 {
+        margin-bottom: 0.25rem;
+        font-size: 1.35rem;
         text-align: center;
-        padding: 2rem 1rem;
-        font-size: 0.875rem;
-        opacity: 0.7;
+      }
+
+      .profile-panel p {
+        margin-bottom: 0;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .profile-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid var(--line);
+      }
+
+      .profile-stats div {
+        padding: 1rem;
+        border-right: 1px solid var(--line);
+        text-align: center;
+      }
+
+      .profile-stats div:last-child {
+        border-right: 0;
+      }
+
+      .profile-stats strong {
+        display: block;
+        font-size: 1.2rem;
+      }
+
+      .profile-stats span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .section {
+        scroll-margin-top: 98px;
+        padding: clamp(3.5rem, 8vw, 5rem) 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .section-header {
+        display: grid;
+        grid-template-columns: minmax(180px, 0.35fr) minmax(0, 0.65fr);
+        gap: 2rem;
+        align-items: start;
+        margin-bottom: 2rem;
+      }
+
+      .section-kicker {
+        margin-bottom: 0.4rem;
+        color: var(--accent-strong);
+        font-size: 0.76rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .section h2 {
+        margin-bottom: 0;
+        font-size: clamp(1.9rem, 5vw, 3rem);
+        line-height: 1.05;
+      }
+
+      .section-header p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(260px, 0.55fr);
+        gap: 1.25rem;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: 0 10px 28px rgba(47, 79, 112, 0.08);
+      }
+
+      .about-copy {
+        padding: clamp(1.25rem, 4vw, 2rem);
+      }
+
+      .about-copy p:last-child {
+        margin-bottom: 0;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        padding: clamp(1.25rem, 4vw, 2rem);
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 0 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface-soft);
+        color: var(--text);
+        font-size: 0.88rem;
+        font-weight: 700;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .experience-item {
+        display: grid;
+        grid-template-columns: minmax(130px, 0.25fr) minmax(0, 0.75fr);
+        gap: 1.5rem;
+        padding: clamp(1.25rem, 4vw, 1.5rem);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: 0 10px 28px rgba(47, 79, 112, 0.07);
+      }
+
+      .date {
+        color: var(--accent-strong);
+        font-size: 0.86rem;
+        font-weight: 800;
+      }
+
+      .experience-item h3,
+      .project-card h3 {
+        margin-bottom: 0.35rem;
+        font-size: 1.2rem;
+      }
+
+      .meta {
+        margin-bottom: 0.8rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .experience-item p,
+      .project-card p {
+        color: var(--muted);
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .project-card {
+        display: flex;
+        flex-direction: column;
+        min-height: 280px;
+        padding: 1.25rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(180deg, rgba(185, 215, 234, 0.2), transparent 42%),
+          var(--surface);
+        box-shadow: 0 10px 28px rgba(47, 79, 112, 0.07);
+        transition:
+          border-color 180ms ease,
+          transform 180ms ease;
+      }
+
+      .project-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+      }
+
+      .project-type {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 1.35rem;
+      }
+
+      .project-icon {
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface-soft);
+        color: var(--accent-strong);
+        font-weight: 800;
+      }
+
+      .project-card p {
+        flex: 1;
+      }
+
+      .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin: 0 0 1.2rem;
+        padding: 0;
+        list-style: none;
+      }
+
+      .tech-list li {
+        padding: 0.25rem 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--surface-soft) 80%, transparent);
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        color: var(--accent-strong);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .project-link:hover,
+      .project-link:focus-visible {
+        text-decoration: underline;
+      }
+
+      .contact-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.45fr);
+        gap: 1rem;
+        align-items: stretch;
+      }
+
+      .contact-copy,
+      .contact-list {
+        padding: clamp(1.25rem, 4vw, 2rem);
+      }
+
+      .contact-copy p {
+        color: var(--muted);
+      }
+
+      .contact-list {
+        display: grid;
+        gap: 0.75rem;
       }
 
       .contact-link {
-        display: inline-flex;
+        display: flex;
         align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        min-height: 52px;
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface-soft);
         color: var(--text);
+        font-weight: 800;
         text-decoration: none;
-        padding: 0.25rem 0;
-        opacity: 0.9;
-        transition: opacity 0.2s ease;
+        transition:
+          background 180ms ease,
+          border-color 180ms ease,
+          transform 180ms ease;
       }
-      .contact-link:hover {
-        opacity: 1;
+
+      .contact-link span {
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 700;
+      }
+
+      .contact-link:hover,
+      .contact-link:focus-visible {
+        border-color: var(--accent);
+        background: var(--surface-strong);
+        transform: translateY(-1px);
+      }
+
+      footer {
+        width: min(1120px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 3rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 860px) {
+        .nav {
+          align-items: flex-start;
+          min-height: auto;
+          padding: 0.85rem 0;
+        }
+
+        .nav-links {
+          order: 3;
+          width: 100%;
+          overflow-x: auto;
+          justify-content: flex-start;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+        }
+
+        .hero,
+        .section-header,
+        .about-grid,
+        .contact-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 3rem;
+        }
+
+        .profile-panel {
+          max-width: 440px;
+        }
+
+        .project-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 620px) {
+        main,
+        .nav,
+        footer {
+          width: min(100% - 1rem, 1120px);
+        }
+
+        .brand span:last-child {
+          display: none;
+        }
+
+        .nav-links a {
+          padding: 0 0.65rem;
+          font-size: 0.86rem;
+        }
+
+        .hero-actions .button {
+          width: 100%;
+        }
+
+        .profile-stats {
+          grid-template-columns: 1fr;
+        }
+
+        .profile-stats div {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .profile-stats div:last-child {
+          border-bottom: 0;
+        }
+
+        .experience-item {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+
+        .contact-link {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 0.2rem;
+        }
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Enes Keles</h1>
-      <p>23 yo CS Student from Turkey</p>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Go to top">
+          
+          <span>Enes Keles</span>
+        </a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <button
+          class="theme-toggle"
+          type="button"
+          id="themeToggle"
+          aria-label="Switch to dark mode"
+          title="Toggle dark mode"
+        >
+          <span aria-hidden="true" id="themeIcon">☾</span>
+        </button>
+      </nav>
     </header>
 
-    <main>
-      <h2>Projects</h2>
-      <div id="projects" class="projects-grid"></div>
+    <main id="top">
+      <section class="hero" aria-labelledby="intro-title">
+        <div>
+          
+          <h1 id="intro-title">Welcome!</h1>
+          <p class="lead">
+            I am Enes Keles, Graduated from Computer Science, full time programmer now, live in Istanbul, Turkiye.
+            You are very welcome to check out this page. Have a look at my latest project and experience.
+            You can also contact me if you like.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">View Projects</a>
+            <a class="button secondary" href="mailto:eneskeles365@outlook.com">
+              Get In Touch
+            </a>
+          </div>
+        </div>
 
-      <section id="contact" style="margin-top: 4rem">
-        <h2>Contact</h2>
+        <aside class="profile-panel" aria-label="Profile summary">
+          <div class="profile-top">
+            <div class="avatar">
+              <img src="assets/IMG20230717194324.jpg" alt="Enes Keles" />
+            </div>
+            <h2>Enes Keles</h2>
+            <p> Computer Scientist | 24 years old | Turkiye</p>
+          </div>
+        
+        </aside>
+      </section>
 
-        <!-- E-posta -->
-        <p>
-          <a href="mailto:eneskeles365@outlook.com" class="contact-link">
-            <!-- envelope svg -->
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              style="vertical-align: middle; margin-right: 4px"
+      <section class="section" id="about" aria-labelledby="about-title">
+        
+          <div>
+            <p class="section-kicker">About Me</p>
+            <h2 id="about-title">A small space for me</h2>
+          </div>
+          
+        
+
+        <div class="about-grid">
+          <div class="panel about-copy">
+            <p>
+              Although I have mainly worked in the web sector, I have also contributed 
+              to projects in other fields such as Deep Learning, Embedded Systems
+              and Security. I am committed to learning new things and I really enjoy
+              helping others learn. I have a strong interest in software architecture.
+            </p>
+            <p>
+              I care about readable code, simple interfaces, and steady
+              improvement.I believe that a great deal can be achieved as long as people work as a team and fulfil their responsibilities.
+              
+            </p>
+          </div>
+
+          <div class="panel skills" aria-label="Core skills">
+            <p>These are the some technologies I use mainly</p>
+            <span class="chip">Java</span>
+            <span class="chip">Go</span>
+            <span class="chip">Python</span>
+            <span class="chip">Docker</span>
+            <span class="chip">MySQL</span>
+            <span class="chip">PyTorch</span>
+            <span class="chip">Firebase</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">Coolify</span>
+            <span class="chip">AWS</span>
+            <span class="chip">Git</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience" aria-labelledby="experience-title">
+        
+          <div>
+            <p class="section-kicker">Experience</p>
+            <h2 id="experience-title">Here are list of my experiences.</h2>
+          </div>
+          
+        
+
+        <div class="timeline">
+          <article class="experience-item">
+            <div class="date">2025 Aug- 2025 Sep </div>
+            <div>
+              <h3>Halk Leasing IT Internship</h3>
+              <p class="meta">Network Administration · Database Management</p>
+              <p>
+                I completed my summer internship in the IT department at Halk Leasing. During that one-month period, I participated in projects focused primarily on network management and security, as well as database systems. 
+              </p>
+              
+            </div>
+          </article>
+
+          <article class="experience-item">
+            <div class="date">Project Work</div>
+            <div>
+              <h3>Tam Finans Halleder Admin Panel</h3>
+              <p class="meta">React · JavaScript · Git · Web Technologies</p>
+              <p>
+                As part of my final project, I developed a user-friendly admin panel using React to manage Tam Finans’s mobile app project called Halleder.
+              </p>
+            </div>
+          </article>
+          <article class="experience-item">
+            <div class="date">Project Work</div>
+            <div>
+              <h3>KSS Smart Hospital Project</h3>
+              <p class="meta">React · JavaScript · Java Spring Boot · Flutter</p>
+              <p>
+                I was involved in developing a system for a hospital that could be used by both patients and staff. During this process, I contributed to indoor navigation using BLE, as well as web and mobile app development.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        
+          <div>
+            <p class="section-kicker">Projects</p>
+            <h2 id="projects-title">Here are some of my projects.</h2>
+          </div>
+          
+        
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-type">
+              
+              <span class="chip">Web App, LLM</span>
+            </div>
+            <h3>ChatBot Application</h3>
+            <p>
+              secure full-stack chatbot app using: Java Spring Boot, Redis, ReactJS, Docker, Llama3. 
+            </p>
+            <ul class="tech-list" aria-label="Technologies used">
+              <li>Java</li>
+              <li>Redis</li>
+              <li>Docker</li>
+              <li>LLama3</li>
+            </ul>
+            <a
+              class="project-link"
+              href="https://github.com/g4stlyx/chatbot"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <path
-                d="M2 4h20v16H2z"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-              <path
-                d="M22 4 12 14 2 4"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-            </svg>
-            eneskeles365@outlook.com
-          </a>
-        </p>
+              View on GitHub
+            </a>
+          </article>
 
-        <!-- LinkedIn -->
-        <p>
-          <a
-            href="https://www.linkedin.com/in/enes-kele%C5%9F-a3717a28a/"
-            target="_blank"
-            rel="noopener"
-            class="contact-link"
-          >
-            <!-- LinkedIn svg -->
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              style="vertical-align: middle; margin-right: 4px"
+          <article class="project-card">
+            <div class="project-type">
+              
+              <span class="chip">Graphics</span>
+            </div>
+            <h3>Ray Tracer</h3>
+            <p>
+              A multi-threaded C++ ray tracer with uniform grid acceleration and
+              custom synchronization work for rendering performance.
+            </p>
+            <ul class="tech-list" aria-label="Technologies used">
+              <li>C++</li>
+              <li>Multithreading</li>
+              <li>Rendering</li>
+            </ul>
+            <a
+              class="project-link"
+              href="https://github.com/Enesfreigthinus/raytracer"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <path
-                fill="currentColor"
-                d="M4.98 3.5C4.98 5 3.92 6 2.49 6 1.05 6 0 5 0 3.5 0 2 1.05 1 2.49 1c1.44 0 2.49 1 2.49 2.5zM.24 8.37h4.46v14.13H.24zM7.48 8.37h4.27v1.93h.06c.6-1.13 2.06-2.33 4.24-2.33 4.53 0 5.37 2.98 5.37 6.86v7.67H16.1v-6.8c0-1.62-.03-3.71-2.26-3.71-2.27 0-2.62 1.77-2.62 3.59v6.92H7.48z"
-              />
-            </svg>
-            LinkedIn
-          </a>
-        </p>
+              View on GitHub
+            </a>
+          </article>
+
+          
+
+          <article class="project-card">
+            <div class="project-type">
+              
+              <span class="chip">Deep Learning</span>
+            </div>
+            <h3>Retinal Disease Classifier</h3>
+            <p>
+              A deep learning model for detecting retinal disease categories
+              with a ConvNeXt-based classification approach.
+            </p>
+            <ul class="tech-list" aria-label="Technologies used">
+              <li>Python</li>
+              <li>ConvNeXt</li>
+              <li>Deep Learning</li>
+            </ul>
+            <a
+              class="project-link"
+              href="https://github.com/Enesfreigthinus/retinal-disease-classifier"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-type">
+              
+              <span class="chip">Machine Learning</span>
+            </div>
+            <h3>Twitter Sentiment Analysis</h3>
+            <p>
+              A machine learning project that predicts sentiment from tweet text
+              and explores natural language processing techniques.
+            </p>
+            <ul class="tech-list" aria-label="Technologies used">
+              <li>Python</li>
+              <li>NLP</li>
+              <li>ML</li>
+            </ul>
+            <a
+              class="project-link"
+              href="https://github.com/Enesfreigthinus/twitter-sentiment-analysis"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-type">
+              
+              <span class="chip">Web App</span>
+            </div>
+            <h3>File Converter Client</h3>
+            <p>
+              A file converter web application client that allows users to convert files between different formats using a backend API.
+            </p>
+            <ul class="tech-list" aria-label="Technologies used">
+              <li>TypeScript</li>
+              <li>Web UI</li>
+              <li>React</li>
+            </ul>
+            <a
+              class="project-link"
+              href="https://github.com/Enesfreigthinus/fileconvy-client"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-type">
+              
+              <span class="chip">Web App</span>
+            </div>
+            <h3>File Converter Server</h3>
+            <p>
+              A file converter backend service that handles file conversion requests and manages the conversion process.
+            </p>
+            <ul class="tech-list" aria-label="Technologies used">
+              <li>Go</li>
+              
+            </ul>
+            <a
+              class="project-link"
+              href="https://github.com/Enesfreigthinus/fileconvy-server"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">Contact</p>
+            <h2 id="contact-title">Get in Touch</h2>
+          </div>
+          <p>
+            The fastest way to reach me is by email. You can also find my code
+            on GitHub and connect with me on LinkedIn.
+          </p>
+        </div>
+
+        <div class="contact-panel">
+          <div class="panel contact-copy">
+            <p>
+              I am open to job offers, collaborations, and freelance work. If you have a project in mind or just want to say hello, feel free to reach out!
+            </p>
+            <div class="social-row">
+              <a class="button" href="mailto:eneskeles365@outlook.com">Email Me</a>
+              <a
+                class="button secondary"
+                href="https://github.com/Enesfreigthinus"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+
+          <div class="panel contact-list" aria-label="Contact links">
+            <a class="contact-link" href="mailto:eneskeles365@outlook.com">
+              Email
+              <span>eneskeles365@outlook.com</span>
+            </a>
+            <a
+              class="contact-link"
+              href="https://github.com/Enesfreigthinus"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+              <span>@Enesfreigthinus</span>
+            </a>
+            <a
+              class="contact-link"
+              href="https://www.linkedin.com/in/enes-kele%C5%9F-a3717a28a/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+              <span>enes-keles</span>
+            </a>
+          </div>
+        </div>
       </section>
     </main>
 
     <footer>
-      &copy; 2025 Enesfreigthinus ·
-      <a
-        href="https://github.com/Enesfreigthinus"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="color: inherit"
-        >GitHub</a
-      >
-      · <a href="mailto:you@example.com" style="color: inherit">Contact</a>
+      <span>&copy; 2026 Enes Keles. All rights reserved.</span>
     </footer>
 
     <script>
-      const projects = [
-        {
-          title: "Hospital System Desktop Application",
-          description:
-            "Hospital system management application for desktop developed with Java",
-          repo: "https://github.com/Enesfreigthinus/HospitalSystemApp",
-          image: "assets/hospitalAppJava.png",
-        },
-        {
-          title: "Ray Tracer",
-          description:
-            "C++ multi‑threaded ray tracer with uniform grid acceleration and custom mutex implementation.",
-          repo: "https://github.com/Enesfreigthinus/raytracer",
-          image: "assets/raytracer.png",
-        },
-        {
-          title: "Dietician Care Web App",
-          description:
-            "Full stack web application for both Dieticians and patients",
-          repo: "https://github.com/Enesfreigthinus/DieticianCareApp",
-          image: "assets/dieticiancare.png",
-        },
-        {
-          title: "Retinal Disease Classifier",
-          description:
-            "Deep Learning model for detecting 16 retinal disease with ConvNeXt",
-          repo: "https://github.com/Enesfreigthinus/retinal-disease-classifier",
-          image: "assets/retinalDC.png",
-        },
-        {
-          title: "Twitter Sentiment Analysis",
-          description:
-            "Machine Learning model that predicts user's sentiement based on their tweets.",
-          repo: "https://github.com/Enesfreigthinus/twitter-sentiment-analysis",
-          image: "assets/sentiment.png",
-        },
-      ];
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      const icon = document.getElementById("themeIcon");
+      const storedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-      const grid = document.getElementById("projects");
+      function applyTheme(theme) {
+        root.dataset.theme = theme;
+        icon.textContent = theme === "dark" ? "☼" : "☾";
+        toggle.setAttribute(
+          "aria-label",
+          theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+        );
+      }
 
-      projects.forEach((p) => {
-        const card = document.createElement("div");
-        card.className = "card";
+      applyTheme(storedTheme || (prefersDark ? "dark" : "light"));
 
-        if (p.image) {
-          const img = document.createElement("img");
-          img.src = p.image;
-          img.alt = `${p.title} thumbnail`;
-          card.appendChild(img);
-        }
-
-        const content = document.createElement("div");
-        content.className = "card-content";
-
-        const h2 = document.createElement("h2");
-        h2.textContent = p.title;
-        content.appendChild(h2);
-
-        const desc = document.createElement("p");
-        desc.textContent = p.description;
-        content.appendChild(desc);
-
-        const link = document.createElement("a");
-        link.href = p.repo;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.textContent = "View on GitHub";
-        content.appendChild(link);
-
-        card.appendChild(content);
-        grid.appendChild(card);
+      toggle.addEventListener("click", () => {
+        const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+        localStorage.setItem("theme", nextTheme);
+        applyTheme(nextTheme);
       });
     </script>
   </body>
