@@ -193,11 +193,10 @@
 
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-        gap: clamp(2rem, 5vw, 5rem);
-        align-items: center;
+        place-items: center;
         min-height: calc(100vh - 72px);
         padding: clamp(4rem, 8vw, 6rem) 0 4rem;
+        text-align: center;
       }
 
       .eyebrow {
@@ -222,7 +221,9 @@
 
       h1 {
         max-width: 760px;
+        margin-right: auto;
         margin-bottom: 1.25rem;
+        margin-left: auto;
         font-size: clamp(2.6rem, 8vw, 5.6rem);
         line-height: 0.98;
         letter-spacing: 0;
@@ -230,7 +231,9 @@
 
       .lead {
         max-width: 650px;
+        margin-right: auto;
         margin-bottom: 2rem;
+        margin-left: auto;
         color: var(--muted);
         font-size: clamp(1.05rem, 2.2vw, 1.25rem);
       }
@@ -240,6 +243,10 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.8rem;
+      }
+
+      .hero-actions {
+        justify-content: center;
       }
 
       .button {
@@ -277,86 +284,6 @@
       .button.secondary:focus-visible {
         background: var(--surface-strong);
         color: var(--text);
-      }
-
-      .profile-panel {
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: color-mix(in srgb, var(--surface) 84%, transparent);
-        box-shadow: var(--shadow);
-        overflow: hidden;
-      }
-
-      .profile-top {
-        padding: 1.25rem;
-        background:
-          linear-gradient(135deg, rgba(118, 159, 205, 0.28), transparent),
-          var(--surface);
-      }
-
-      .avatar {
-        display: block;
-        width: clamp(112px, 22vw, 160px);
-        aspect-ratio: 1;
-        margin: 0 auto 1.25rem;
-        border: 1px solid var(--line);
-        border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          #f7fbfc 0%,
-          #d6e6f2 48%,
-          #769fcd 100%
-        );
-        box-shadow: 0 14px 32px rgba(47, 79, 112, 0.18);
-        overflow: hidden;
-      }
-
-      .avatar img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 36%;
-      }
-
-      .profile-panel h2 {
-        margin-bottom: 0.25rem;
-        font-size: 1.35rem;
-        text-align: center;
-      }
-
-      .profile-panel p {
-        margin-bottom: 0;
-        color: var(--muted);
-        text-align: center;
-      }
-
-      .profile-stats {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        border-top: 1px solid var(--line);
-      }
-
-      .profile-stats div {
-        padding: 1rem;
-        border-right: 1px solid var(--line);
-        text-align: center;
-      }
-
-      .profile-stats div:last-child {
-        border-right: 0;
-      }
-
-      .profile-stats strong {
-        display: block;
-        font-size: 1.2rem;
-      }
-
-      .profile-stats span {
-        display: block;
-        color: var(--muted);
-        font-size: 0.8rem;
-        font-weight: 700;
       }
 
       .section {
@@ -649,10 +576,6 @@
           padding-top: 3rem;
         }
 
-        .profile-panel {
-          max-width: 440px;
-        }
-
         .project-grid {
           grid-template-columns: 1fr;
         }
@@ -676,19 +599,6 @@
 
         .hero-actions .button {
           width: 100%;
-        }
-
-        .profile-stats {
-          grid-template-columns: 1fr;
-        }
-
-        .profile-stats div {
-          border-right: 0;
-          border-bottom: 1px solid var(--line);
-        }
-
-        .profile-stats div:last-child {
-          border-bottom: 0;
         }
 
         .experience-item {
@@ -733,8 +643,7 @@
         <div>
           <h1 id="intro-title">Welcome!</h1>
           <p class="lead">
-            I am Enes Keles, Graduated from Computer Engineering, full time
-            programmer now, live in Istanbul, Turkiye. You are very welcome to
+            I am Enes Keles, software engineer from Turkey. You are very welcome to
             check out this page. Have a look at my latest project and
             experience. You can also contact me if you like.
           </p>
@@ -745,16 +654,6 @@
             </a>
           </div>
         </div>
-
-        <aside class="profile-panel" aria-label="Profile summary">
-          <div class="profile-top">
-            <div class="avatar">
-              <img src="assets/IMG20230717194324.jpg" alt="Enes Keles" />
-            </div>
-            <h2>Enes Keles</h2>
-            <p>Sofware Engineer | 24 years old | Turkiye</p>
-          </div>
-        </aside>
       </section>
 
       <section class="section" id="about" aria-labelledby="about-title">
